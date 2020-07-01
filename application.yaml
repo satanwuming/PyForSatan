@@ -1,0 +1,11 @@
+email:
+  defalut:
+    EmailAddress: ceshi@163.com
+    #昵称
+    NickName: ceshi
+    #用户名
+    UserName: ceshi@163.com
+    Password: ceshi
+    Port: 465
+    SSL: true
+    Server: smtp.163.com
