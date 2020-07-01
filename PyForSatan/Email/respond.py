@@ -5,7 +5,6 @@ import re, os
 
 
 class EmailResprond:
-    
     __recipients__ = ""
 
     __active_type__ = None
@@ -71,7 +70,7 @@ class EmailResprond:
 
         return self
 
-    def setBody(self, type="html",content=""):
+    def setBody(self, type="html", content=""):
         """
 
         :param type: 可以为html或text
@@ -95,7 +94,7 @@ class EmailResprond:
         self.__AttachmentFile__.append(os.path.abspath(file_path))
         return self
 
-    def subJect(self, content=""):
+    def setSubJect(self, content=""):
         """
         设置主题内容
         :param content:
@@ -103,3 +102,27 @@ class EmailResprond:
         """
         self.__Subject__ = content
         return self
+
+    def getRecipients(self):
+        return self.__recipients__
+
+    def getActive_type(self):
+        return self.__active_type__
+
+    def getBodyContent(self):
+        return self.__BodyContent__
+
+    def getAttachmentFile(self):
+        return self.__AttachmentFile__
+
+    def getSubject(self):
+        if self.__Subject__ is None:
+            return ""
+        return self.__Subject__
+
+    def __str__(self):
+        info = "收件人  :" + self.__recipients__ + "\n" \
+               + "主题    :" + self.__Subject__ + "\n" \
+               + "内容类型:" + self.__active_type__ + "\n" \
+               + "内容    :" + self.__BodyContent__
+        return info

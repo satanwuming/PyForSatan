@@ -8,11 +8,14 @@ class Email_Send:
 
     __Resource__ = None
 
+    __config_name__="defalut"
+
     def __init__(self):
         pass
 
     def close(self):
-        pass
+        if self.__Resource__ is not None:
+            self.__Resource__.quit()
 
     def get_config(self,file_path=""):
         """
@@ -28,6 +31,7 @@ class Email_Send:
         :param config_name:
         :return:
         """
+        self.__config_name__ = config_name
         config_data = self.get_config()
         if self.__Resource__ is not None:
             self.close()
@@ -40,11 +44,22 @@ class Email_Send:
         return self
 
     def send(self,Body:EmailResprond):
-        if self.__Resource__ is None:
-            self.SwitchToResource()
-        #开始发送邮件
-        
-
+        try:
+            if self.__Resource__ is None:
+                self.SwitchToResource()
+            # 构造发送器
+            config_data = self.get_config()[self.__config_name__]
+            if Body.getActive_type() != "html":
+                msg = MIMEText(Body.getBodyContent(), 'plain', 'utf-8')
+            else:
+                msg = MIMEText(Body.getBodyContent(), 'html', 'utf-8')
+            msg['From'] = formataddr([config_data["NickName"], config_data["UserName"]])
+            msg['To'] = Body.getRecipients()
+            msg['Subject']=Body.getSubject()
+            self.__Resource__.sendmail(config_data["EmailAddress"],msg['To'], msg.as_string())
+            return True
+        except Exception as e:
+            return False
 
     def __enter__(self):
         return self

@@ -1,8 +1,0 @@
-email:
-  defalut:
-    EmailAddress: frank_yongjian@163.com
-    UserName: frank_yongjian@163.com
-    Password: xiaojian5791041
-    Port: 465
-    SSL: true
-    Server: smtp.163.com
